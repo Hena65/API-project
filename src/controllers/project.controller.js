@@ -68,7 +68,7 @@ const deleteProject = async (req, res, next) => {
 const addManager = async (req, res, next) => {
     try {
 
-        const project = await projectService.addManager(
+        const project = await projectService.assignManager(
             req.params.id,
             req.body.userId,
             req.user
