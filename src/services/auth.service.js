@@ -12,7 +12,7 @@ const registerUser=async(data)=>{
         throw new Error("user already existing")
     }
     const hashedPassword=await hashPassword(password)
-    const user=User.create({
+    const user=await User.create({
         name,
         email,
         password:hashedPassword

@@ -1,4 +1,4 @@
-const {verifyToken}=require('../utils/presence.util')
+const {verifyToken}=require('../utils/token.util')
 const {redisClient}=require('../config/redis')
 
 const isAuthenticated=async(req,res,next)=>{
@@ -23,6 +23,7 @@ const isAuthenticated=async(req,res,next)=>{
             userId,
             sessionId
         }
+        next()
 
     }catch(error){
         next(error)
