@@ -4,7 +4,7 @@ const chatService = require('./chat.service')
 const sortUtil = require('../utils/sort.util')
 const filterUtil = require('../utils/filter.util')
 const paginationUtil = require('../utils/pagination.util')
-
+const ChatRoom = require('../models/chatRoom.model')
 // Create a new project
 const createProject = async (data, user) => {
     const project = await Project.create({
@@ -141,7 +141,9 @@ const addMember = async (projectId, memberId, user) => {
     await project.save()
 
     try {
-        await chatService.addParticipants(projectId, [memberId])
+       const room = await ChatRoom.findOne({ project: projectId })
+
+        await chatService.addParticipants(room._id, [memberId])
     } catch (err) {
         console.error("Chat service add member failed", err)
     }
@@ -173,7 +175,9 @@ const removeMember = async (projectId, memberId, user) => {
     await project.save()
 
     try {
-        await chatService.removeParticipant(projectId, memberId)
+        const room = await ChatRoom.findOne({ project: projectId })
+
+        await chatService.removeParticipant(room._id, memberId)
     } catch (err) {
         console.error("Chat service remove member failed", err)
     }
@@ -206,12 +210,18 @@ const assignManager = async (projectId, userId, user) => {
     if (managerProjects >= 3) {
         throw new Error("User already manages 3 projects")
     }
+    
+    if (userId === project.owner.toString()) {
+    throw new Error("Owner cannot be assigned as manager")
+    }
 
     project.managers.push(userId)
     await project.save()
 
     try {
-        await chatService.addParticipants(projectId, [userId])
+       const room = await ChatRoom.findOne({ project: projectId })
+
+        await chatService.addParticipants(room._id, [userId])
     } catch (err) {
         console.error("Chat service assign manager failed", err)
     }
