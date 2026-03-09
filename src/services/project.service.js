@@ -193,10 +193,7 @@ const assignManager = async (projectId, userId, user) => {
         throw new Error("Only owner can assign managers")
     }
 
-    const isMember = project.members.some(id => id.toString() === userId)
-    if (!isMember) {
-        throw new Error("User must be a member first")
-    }
+    
 
     if (project.managers.includes(userId)) {
         throw new Error("User is already a manager")

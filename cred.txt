@@ -36,3 +36,173 @@
     "__v": 0
   }
 }
+
+3.
+{
+  "name": "Alice",
+  "email": "alice@example.com",
+  "password": "Alice@123"
+}
+
+{
+  "message": "User registered successfully",
+  "user": {
+    "name": "Alice",
+    "email": "alice@example.com",
+    "password": "$2b$10$tMQ5qorn1Sz8sw8hAQoTvur0F.v.C7UBANWTAx3hR7bYSQptV65SK",
+    "managerProjectCount": 0,
+    "memberTaskCount": 0,
+    "isVerified": true,
+    "_id": "69ae788b4c9dd9dddbbdeb9a",
+    "createdAt": "2026-03-09T07:36:43.406Z",
+    "updatedAt": "2026-03-09T07:36:43.406Z",
+    "__v": 0
+  }
+}
+
+
+4.
+{
+  "name": "Frank",
+  "email": "frank@example.com",
+  "password": "Frank@123"
+}
+
+{
+  "message": "User registered successfully",
+  "user": {
+    "name": "Frank",
+    "email": "frank@example.com",
+    "password": "$2b$10$aj8pBPRyGzqfukgpKcOPFu.GrLoB7CHoUsATYHQzU07jwWGNVhkSO",
+    "managerProjectCount": 0,
+    "memberTaskCount": 0,
+    "isVerified": true,
+    "_id": "69ae79574c9dd9dddbbdeb9d",
+    "createdAt": "2026-03-09T07:40:07.020Z",
+    "updatedAt": "2026-03-09T07:40:07.020Z",
+    "__v": 0
+  }
+}
+
+5.
+{
+  "name": "Grace",
+  "email": "grace@example.com",
+  "password": "grace@123"
+}
+
+{
+  "message": "User registered successfully",
+  "user": {
+    "name": "Grace",
+    "email": "grace@example.com",
+    "password": "$2b$10$d3Fe.oIROIlC4THC0qam4uRBWW6g5.18BDtNUJMe1v4NEh5OhlJTu",
+    "managerProjectCount": 0,
+    "memberTaskCount": 0,
+    "isVerified": true,
+    "_id": "69ae798f4c9dd9dddbbdeba0",
+    "createdAt": "2026-03-09T07:41:03.585Z",
+    "updatedAt": "2026-03-09T07:41:03.585Z",
+    "__v": 0
+  }
+}
+
+6.
+{
+  "name": "Project Alpha",
+  "description": "This is the first test project"
+}
+
+{
+  "message": "project created successfully",
+  "project": {
+    "name": "Project Alpha",
+    "owner": "69ae6695f8915a2c80a47d9f",
+    "managers": [],
+    "members": [],
+    "isDeleted": false,
+    "_id": "69ae7ead4c9dd9dddbbdeba3",
+    "createdAt": "2026-03-09T08:02:53.355Z",
+    "updatedAt": "2026-03-09T08:02:53.355Z",
+    "__v": 0
+  }
+}
+
+7.
+{
+  "message": "Manager added successfully",
+  "project": {
+    "_id": "69ae7ead4c9dd9dddbbdeba3",
+    "name": "Project Alpha",
+    "owner": "69ae6695f8915a2c80a47d9f",
+    "managers": [
+      "69ae798f4c9dd9dddbbdeba0"
+    ],
+    "members": [],
+    "isDeleted": false,
+    "createdAt": "2026-03-09T08:02:53.355Z",
+    "updatedAt": "2026-03-09T08:23:04.022Z",
+    "__v": 1
+  }
+}
+
+8.
+{
+  "message": "Member added",
+  "project": {
+    "_id": "69ae7ead4c9dd9dddbbdeba3",
+    "name": "Project Alpha",
+    "owner": "69ae6695f8915a2c80a47d9f",
+    "managers": [
+      "69ae798f4c9dd9dddbbdeba0"
+    ],
+    "members": [
+      "69ae788b4c9dd9dddbbdeb9a"
+    ],
+    "isDeleted": false,
+    "createdAt": "2026-03-09T08:02:53.355Z",
+    "updatedAt": "2026-03-09T08:24:50.722Z",
+    "__v": 2
+  }
+}
+
+9.
+{
+  "message": "Member added",
+  "project": {
+    "_id": "69ae7ead4c9dd9dddbbdeba3",
+    "name": "Project Alpha",
+    "owner": "69ae6695f8915a2c80a47d9f",
+    "managers": [
+      "69ae798f4c9dd9dddbbdeba0"
+    ],
+    "members": [
+      "69ae788b4c9dd9dddbbdeb9a",
+      "69ae79574c9dd9dddbbdeb9d"
+    ],
+    "isDeleted": false,
+    "createdAt": "2026-03-09T08:02:53.355Z",
+    "updatedAt": "2026-03-09T08:26:15.039Z",
+    "__v": 3
+  }
+}
+
+10.
+{
+  "message": "Task created successfully",
+  "task": {
+    "title": "Setup Database",
+    "description": "Initialize MongoDB and seed sample data",
+    "project": "69ae7ead4c9dd9dddbbdeba3",
+    "createdBy": "69ae798f4c9dd9dddbbdeba0",
+    "assignedTo": "69ae79574c9dd9dddbbdeb9d",
+    "status": "todo",
+    "dueDate": "2026-03-15T17:00:00.000Z",
+    "_id": "69ae874e2ab857f96aeea513",
+    "createdAt": "2026-03-09T08:39:42.178Z",
+    "updatedAt": "2026-03-09T08:39:42.178Z",
+    "__v": 0
+  }
+}
+
+
