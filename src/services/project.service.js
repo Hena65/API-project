@@ -104,6 +104,7 @@ const deleteProject = async (projectId, user) => {
 
     project.isDeleted = true
     await project.save()
+    await clearCache("projects*")
 
     try {
         await chatService.softDeleteRoom(projectId)
@@ -129,7 +130,7 @@ const addMember = async (projectId, memberId, user) => {
         throw new Error("Only manager or owner can add members")
     }
 
-    if (project.members.includes(memberId)) {
+    if (project.members.some(id=>id.toString()===memberId)) {
         throw new Error("User is already a member")
     }
 
@@ -147,7 +148,7 @@ const addMember = async (projectId, memberId, user) => {
     } catch (err) {
         console.error("Chat service add member failed", err)
     }
-
+    await clearCache("projects*")
     return project
 }
 
@@ -181,7 +182,7 @@ const removeMember = async (projectId, memberId, user) => {
     } catch (err) {
         console.error("Chat service remove member failed", err)
     }
-
+    await clearCache("projects*")
     return project
 }
 
@@ -199,7 +200,7 @@ const assignManager = async (projectId, userId, user) => {
 
     
 
-    if (project.managers.includes(userId)) {
+    if (project.managers.some(id=>id.toString()===userId)) {
         throw new Error("User is already a manager")
     }
 
@@ -210,7 +211,7 @@ const assignManager = async (projectId, userId, user) => {
     if (managerProjects >= 3) {
         throw new Error("User already manages 3 projects")
     }
-    
+
     if (userId === project.owner.toString()) {
     throw new Error("Owner cannot be assigned as manager")
     }
@@ -225,7 +226,7 @@ const assignManager = async (projectId, userId, user) => {
     } catch (err) {
         console.error("Chat service assign manager failed", err)
     }
-
+    await clearCache("projects*")
     return project
 }
 
@@ -253,6 +254,13 @@ const removeManager = async (projectId, userId, user) => {
     project.managers = project.managers.filter(id => id.toString() !== userId)
     await project.save()
 
+    try {
+    const room = await ChatRoom.findOne({ project: projectId })
+    await chatService.removeParticipant(room._id, userId)
+} catch (err) {
+    console.error("Chat service remove manager failed", err)
+}
+    await clearCache("projects*")
     return project
 }
 

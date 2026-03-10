@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Socket Chat Test</title>
+  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+</head>
+
+<body>
+
+<h2>Socket Chat Test</h2>
+
+<p>JWT Token</p>
+<input id="token" style="width:400px">
+
+<br><br>
+
+<p>Project ID</p>
+<input id="projectId">
+
+<br><br>
+
+
+<br><br>
+
+<button onclick="connectSocket()">Connect Socket</button>
+<button onclick="joinRoom()">Join Room</button>
+
+<hr>
+
+<p>Message</p>
+<input id="message" style="width:300px">
+<button onclick="sendMessage()">Send</button>
+
+<h3>Chat Messages</h3>
+<ul id="messages"></ul>
+
+<script>
+
+let socket
+
+function connectSocket(){
+
+  const token = document.getElementById("token").value
+
+  socket = io("http://localhost:3000", {
+    auth: { token }
+  })
+
+  socket.on("connect", () => {
+    console.log("Connected:", socket.id)
+  })
+  socket.on("connect_error", (err) => {
+  console.log("Connect error:", err.message)
+  alert("Connect error: " + err.message)
+})
+  socket.on("newMessage", (msg) => {
+
+    const li = document.createElement("li")
+    li.textContent = msg.sender + " : " + msg.message
+
+    document.getElementById("messages").appendChild(li)
+
+  })
+
+  socket.on("error", (err) => {
+    alert(err)
+  })
+
+}
+
+function joinRoom(){
+
+  const projectId = document.getElementById("projectId").value
+
+  socket.emit("joinRoom", {
+    projectId
+  })
+
+}
+
+function sendMessage(){
+
+  const projectId = document.getElementById("projectId").value
+  
+  const message = document.getElementById("message").value
+
+  socket.emit("sendMessage", {
+    projectId,
+    
+    message
+  })
+
+}
+
+</script>
+
+</body>
+</html>

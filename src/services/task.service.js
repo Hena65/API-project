@@ -157,12 +157,17 @@ const deleteTask = async (taskId, user) => {
     }
 
     const project = task.project
+     const allowed =
+        project.owner.toString() === user.userId ||
+        project.managers.includes(user.userId)
 
-    if (project.owner.toString() !== user.userId) {
-        throw new Error("Only owner can delete tasks")
+    if (!allowed) {
+        throw new Error("Only owner or manager can delete task")
     }
+   
 
     await task.deleteOne()
+    await clearCache("tasks*")
 
     return task
 }
