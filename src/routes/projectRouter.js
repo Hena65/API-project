@@ -4,8 +4,10 @@ const router=express.Router()
 const projectController=require('../controllers/project.controller')
 const {isAuthenticated}=require('../middlewares/auth.middleware')
 const cacheMiddleware = require("../middlewares/cache.middleware")
+const validate=require('../middlewares/validate.middleware')
+const projectSchema=require('../validations/project.schema')
 
-router.post("/project", isAuthenticated,projectController.createProject)
+router.post("/project",validate(projectSchema), isAuthenticated,projectController.createProject)
 
 router.get("/project", isAuthenticated,cacheMiddleware(300),projectController.getProjects)
 

@@ -5,9 +5,12 @@ const router = express.Router()
 const taskController = require("../controllers/task.controller")
 const {isAuthenticated} = require("../middlewares/auth.middleware")
 const cacheMiddleware = require("../middlewares/cache.middleware")
+const validate=require('../middlewares/auth.middleware')
+const taskSchema=require('../validations/task.schema')
 
 router.post(
   "/projects/:projectId/tasks",
+  validate(taskSchema),
   isAuthenticated,
   taskController.createTask
 )
